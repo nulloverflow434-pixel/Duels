@@ -1,0 +1,14 @@
+name: AntiRelog
+version: '3.0.11-1.21'
+main: ru.leymooo.antirelog.Antirelog
+api-version: '1.21'
+author: leymooo
+softdepend: [ProtocolLib, WorldGuard, Essentials]
+commands:
+  antirelog:
+    description: AntiRelog admin command
+    aliases: [ar, antirel]
+    permission: antirelog.reload
+permissions:
+  antirelog.reload:
+    default: op

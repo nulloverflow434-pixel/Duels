@@ -1,8 +1,0 @@
-dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
-    implementation ('com.sk89q.worldguard:worldguard-bukkit:7.0.0') {
-        exclude group: 'org.bukkit', module: 'bukkit'
-        exclude group: 'org.spigotmc', module: 'spigot-api'
-    }
-    implementation project(':duels-worldguard')
-}

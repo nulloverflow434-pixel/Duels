@@ -1,5 +1,0 @@
-dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
-    implementation ('com.sk89q:worldguard:6.1.1-SNAPSHOT') { exclude group: 'org.bukkit', module: 'bukkit' }
-    implementation project(':duels-worldguard')
-}
