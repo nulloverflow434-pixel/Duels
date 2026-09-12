@@ -1,0 +1,53 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+clean.doFirst { delete "$rootDir/out/" }
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.yml'
+        filter(ReplaceTokens, tokens: [VERSION: project.version])
+    }
+}
+
+dependencies {
+    compileOnly 'org.jetbrains:annotations:24.1.0'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+    compileOnly 'com.mojang:authlib:1.5.21'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+    compileOnly name: 'Vault-1.6.7'
+    compileOnly (name: 'MVdWPlaceholderAPI-3.1.1') { transitive = false }
+    compileOnly name: 'CombatTagPlus'
+    compileOnly name: 'PvPManager-3.7.16'
+    compileOnly name: 'Factions-1.6.9.5-U0.1.14'
+    compileOnly name: 'MassiveCore'
+    compileOnly name: 'Factions'
+    compileOnly name: 'MyPet-2.3.4'
+    compileOnly name: 'BountyHunters-2.2.6'
+    compileOnly name: 'SimpleClans-2.14.4.1'
+    compileOnly name: 'LeaderHeadsAPI'
+    implementation project(':duels-api')
+    implementation project(':duels-worldguard')
+    implementation project(':duels-worldguard-v6')
+    implementation project(':duels-worldguard-v7')
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+}
+
+shadowJar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    getDestinationDirectory().set(file("$rootDir/out/"))
+    getArchiveFileName().set(parent.name + '-' + project.version + '-1.21.11.jar')
+    dependencies {
+        include(project(':duels-api'))
+        include(project(':duels-worldguard'))
+        include(project(':duels-worldguard-v6'))
+        include(project(':duels-worldguard-v7'))
+        include(dependency('com.fasterxml.jackson.core:.*'))
+        include(dependency('org.apache.commons:commons-lang3:.*'))
+    }
+}
+
+build { dependsOn(shadowJar) }
